@@ -3,7 +3,7 @@ from chat.api.serializer import UserSerializer
 from django.db.models.query import QuerySet
 from rest_framework import viewsets
 from rest_framework.response import Response
-
+from django.http import Http404
 
 
 class UsersViewSet(viewsets.ModelViewSet):
@@ -18,6 +18,14 @@ class UsersViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         users = self.get_queryset()
         return self.results_paginated(users)
+    
+    def retrieve(self, request, pk=None):
+        try:
+            user = User.objects.get(pk=pk)
+            object_serialized = UserSerializer(user)
+            return Response(object_serialized.data)
+        except User.DoesNotExist:
+            raise Http404
         
     def results_paginated(self, users: QuerySet):
         page = self.paginate_queryset(users)

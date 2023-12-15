@@ -28,6 +28,10 @@ class TestListUsers(TestCase):
         self.assertEqual(len(self.json_response), 1)
         self.assertEqual(self.json_response, [UserSerializer(self.user).data])
 
+    def test_it_returns_status_code_200(self):
+        self.act()
+        self.assertEqual(self.response.status_code, 200)
+
     def test_it_returns_multiple_users(self):
         self.user_2 = User.objects.create(first_name="test_2", last_name="user_2", email="test_2@user_2.com", username="test_user_2")
         self.act()

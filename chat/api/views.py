@@ -1,7 +1,7 @@
 from chat.models import User
 from chat.api.serializer import UserSerializer
 from django.db.models.query import QuerySet
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from django.http import Http404
 
@@ -26,6 +26,13 @@ class UsersViewSet(viewsets.ModelViewSet):
             return Response(object_serialized.data)
         except User.DoesNotExist:
             raise Http404
+        
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         
     def results_paginated(self, users: QuerySet):
         page = self.paginate_queryset(users)

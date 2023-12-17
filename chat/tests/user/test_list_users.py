@@ -3,7 +3,7 @@ from unittest.mock import patch
 from chat.models import User 
 from django.urls import reverse
 from rest_framework.test import APIClient
-from chat.api.serializer import UserSerializer
+from chat.api.serializers.user import UserSerializer
 
 
 class TestListUsers(TestCase):

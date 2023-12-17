@@ -1,9 +1,11 @@
+from chat.api.serializers.conversation import ConversationSerializer
 from chat.models import User
-from chat.api.serializer import UserSerializer
+from chat.api.serializers.user import UserSerializer
 from django.db.models.query import QuerySet
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from django.http import Http404
+from rest_framework.decorators import action
 
 
 class UsersViewSet(viewsets.ModelViewSet):
@@ -33,6 +35,13 @@ class UsersViewSet(viewsets.ModelViewSet):
         serializer.save()
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+    @action(detail=True, methods=["get"])
+    def conversations(self, request, pk=None):
+        user = self.get_object()
+        conversations = user.conversation_set.all()
+        serializer = ConversationSerializer(conversations, many=True)
+        return Response(serializer.data)
     
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)

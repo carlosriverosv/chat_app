@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from chat.api.serializer import ConversationSerializer
+from chat.api.serializers.conversation import ConversationSerializer
 from chat.models import Conversation, User
 
 

@@ -2,7 +2,7 @@ from unittest.mock import patch
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
-from chat.api.serializer import ConversationSerializer
+from chat.api.serializers.conversation import ConversationSerializer
 
 from chat.models import Conversation, User
 

@@ -1,13 +1,13 @@
 from django.contrib.auth import get_user_model
-from chat.models import Conversation, User
+from chat.models import User
 from rest_framework import serializers
-from rest_framework.serializers import ValidationError
 
 
 User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = User
         fields = [
@@ -16,16 +16,8 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name',
             'email',
             'is_active',
-            'username'
+            'username',
         ]
         read_only_fields = [
             "pk"
         ]
-
-
-class ConversationSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Conversation
-        fields = '__all__'
-        read_only_fields = ['date_created']

@@ -2,6 +2,7 @@ from unittest.mock import patch
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
+from chat.api.serializer import ConversationSerializer
 
 from chat.models import Conversation, User
 
@@ -35,3 +36,4 @@ class ListConversationsTest(TestCase):
     def test_it_returns_all_conversations(self):
         self.act()
         self.assertEqual(len(self.json_response), 2)
+        self.assertEqual(self.json_response, [ConversationSerializer(self.conversation_1).data, ConversationSerializer(self.conversation_2).data])

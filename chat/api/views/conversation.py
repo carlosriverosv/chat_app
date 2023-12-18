@@ -2,6 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from chat.api.serializers.conversation import ConversationSerializer
+from chat.api.serializers.message import MessageSerializer
 from chat.models import Conversation, User
 
 
@@ -22,4 +23,10 @@ class ConversationViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(conversation)
         return Response(serializer.data)
-        
+    
+    @action(detail=True)
+    def messages(self, request, pk=None):
+        conversation = self.get_object()
+        messages = conversation.message_set.order_by("-date_created").all()
+        serializer = MessageSerializer(messages, many=True)
+        return Response(serializer.data)

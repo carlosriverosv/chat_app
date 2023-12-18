@@ -1,6 +1,7 @@
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 from chat.api.views.conversation import ConversationViewSet
+from chat.api.views.message import MessageViewSet
 from chat.api.views.user import UsersViewSet
 
 
@@ -9,6 +10,7 @@ router = DefaultRouter(
 )
 router.register(r"users", UsersViewSet, basename="users",)
 router.register(r"conversations", ConversationViewSet, basename="conversations")
+router.register(r"messages", MessageViewSet, basename="messages")
 
 urlpatterns = [
     path("", include(router.urls)),

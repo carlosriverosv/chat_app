@@ -14,6 +14,7 @@ class User(AbstractUser):
 class Message(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
-    multimedia_url = models.CharField(max_length=2048)
+    multimedia_url = models.CharField(max_length=2048, null=True)
     conversation = models.ForeignKey("Conversation", on_delete=models.CASCADE)
     user = models.ForeignKey("User", on_delete=models.CASCADE)
+    message_text = models.CharField(max_length=1000, null=True)

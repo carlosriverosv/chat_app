@@ -1,0 +1,20 @@
+[run]
+source = 
+    .
+
+omit =
+    */migrations/*
+    */tests/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+
+omit =
+    */migrations/*
+    */tests/*
+
+
+[paths]
+source =
+    .

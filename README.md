@@ -7,6 +7,7 @@ This app contains 3 models: `User`, `Conversation`, and `Message`. All endpoints
 
 ### If it's for the first time
 
+Duplicate the `.env.example` file and change it's name to `.env`.
 To build and run the application for the first time, open a terminal located in the root folder and run:
 
 `make setup`
